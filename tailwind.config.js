@@ -11,6 +11,9 @@ module.exports = {
         "header-background-image": "url('/bg-mobile-light.jpg')",
       },
       colors: {
+        primary: `hsl(220, 98%, 61%)`,
+        lightBlue: `hsl(192, 100%, 67%)`,
+        purple: `hsl(280, 87%, 65%)`,
         lightMode: {
           veryLightGray: `hsl(0,0%,98%)`,
           veryLightGrayishBlue: `hsl(236, 33%, 92%)`,

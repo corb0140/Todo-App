@@ -1,4 +1,24 @@
+"use client";
+
+import { addTodo } from "@/app/redux/slices/todoSlice";
+import { useDispatch } from "react-redux";
+import { useRef } from "react";
+
 const CreateTodo = ({ toggleTheme }) => {
+  const inputRef = useRef();
+  const dispatch = useDispatch();
+
+  const addTodoHandler = (ev) => {
+    ev.preventDefault();
+    const todo = {
+      id: Math.floor(Math.random() * 100000),
+      text: inputRef.current.value,
+    };
+
+    dispatch(addTodo(todo));
+    ev.target.reset();
+  };
+
   return (
     <div
       className={`h-[4.8rem] w-full ${
@@ -7,11 +27,14 @@ const CreateTodo = ({ toggleTheme }) => {
     >
       <div className="h-8 w-8 rounded-full border border-lightMode-lightGrayishBlue"></div>
 
-      <input
-        type="text"
-        placeholder="Create a new todo..."
-        className="text-lg outline-none w-2/3 text-lightMode-darkGrayishBlue bg-transparent"
-      />
+      <form onSubmit={addTodoHandler} className="w-2/3">
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Create a new todo..."
+          className="text-lg outline-none w-full text-lightMode-darkGrayishBlue bg-transparent"
+        />
+      </form>
     </div>
   );
 };
