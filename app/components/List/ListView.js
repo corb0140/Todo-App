@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ListView() {
+export default function ListView({ toggleTheme }) {
   const [activeLink, setActiveLink] = useState(0);
 
   const handleActiveLink = (index) => {
@@ -11,7 +11,11 @@ export default function ListView() {
   };
 
   return (
-    <div className="h-[4.8rem] w-full bg-white rounded-lg px-5">
+    <div
+      className={`h-[4.8rem] w-full ${
+        toggleTheme ? "bg-darkMode-veryDarkDesaturatedBlue" : "bg-white"
+      } rounded-lg px-5`}
+    >
       <ul className="h-full w-full flex items-center justify-center gap-x-7">
         <li className="text-xl font-semibold">
           <Link
