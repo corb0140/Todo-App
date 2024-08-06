@@ -1,4 +1,5 @@
 import "./globals.css";
+import { StoreProvider } from "@/app/redux/StoreProvider";
 
 export const metadata = {
   title: "Frontend Mentor || Todo App",
@@ -15,7 +16,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="font-Josefin">{children}</body>
+      <body className="font-Josefin">
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }
