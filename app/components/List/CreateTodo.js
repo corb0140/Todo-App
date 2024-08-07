@@ -13,6 +13,7 @@ const CreateTodo = ({ toggleTheme }) => {
     const todo = {
       id: Math.floor(Math.random() * 100000),
       text: inputRef.current.value,
+      completed: false,
     };
 
     dispatch(addTodo(todo));

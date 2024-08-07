@@ -1,30 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo } from "@/app/redux/slices/todoSlice";
+import { removeTodo, updateTodo } from "@/app/redux/slices/todoSlice";
 import check from "@/public/images/icon-check.svg";
 import cross from "@/public/images/icon-cross.svg";
-import { useState } from "react";
 
 export default function List({ toggleTheme }) {
-  const [completed, setCompleted] = useState(false);
   const { todoList } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
 
   const toggleCompleted = (id) => {
-    todoList.map((todo) => {
-      if (todo.id === id) {
-        setCompleted(!completed);
-        console.log(todo);
-      }
-    });
+    const item = todoList.find((todo) => todo.id === id);
+
+    if (item) {
+      dispatch(updateTodo({ id: item.id }));
+    }
   };
 
   const removeTodoHandler = (id) => {
-    todoList.map((todo) => {
-      if (todo.id === id) {
-        dispatch(removeTodo(todo.id));
-      }
-    });
+    dispatch(removeTodo(id));
   };
 
   return (
@@ -42,13 +37,13 @@ export default function List({ toggleTheme }) {
             className={`h-8 w-8 rounded-full border border-${
               toggleTheme ? "darkMode" : "lightMode"
             }-lightGrayishBlue ${
-              completed ? "bg-gradient-to-br from-lightBlue to-purple" : ""
+              todo.completed ? "bg-gradient-to-br from-lightBlue to-purple" : ""
             } flex items-center justify-center`}
             onClick={() => {
               toggleCompleted(todo.id);
             }}
           >
-            {completed && (
+            {todo.completed && (
               <Image
                 src={check}
                 alt="check mark to show task is completed"
