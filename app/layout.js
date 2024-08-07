@@ -2,7 +2,7 @@ import "./globals.css";
 import { StoreProvider } from "@/app/redux/StoreProvider";
 
 export const metadata = {
-  title: "Frontend Mentor || Todo App",
+  title: "Todo App",
   description: "Add and remove tasks from your todo list",
 };
 
