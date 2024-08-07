@@ -21,10 +21,14 @@ export default function TodoList({ toggleTheme }) {
   });
 
   return (
-    <div className="px-6 h-auto w-full flex flex-col gap-y-5 relative bottom-[10rem]">
+    <div className="px-6 lg:px-[35rem] h-auto w-full flex flex-col gap-y-5 relative bottom-[10rem]">
       <CreateTodo toggleTheme={toggleTheme} />
 
-      <List todos={filteredTodos} toggleTheme={toggleTheme} />
+      <List
+        todos={filteredTodos}
+        toggleTheme={toggleTheme}
+        handleViewState={handleViewState}
+      />
 
       <ListView toggleTheme={toggleTheme} handleViewState={handleViewState} />
     </div>

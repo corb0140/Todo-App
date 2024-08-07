@@ -9,7 +9,7 @@ import sun from "@/public/images/icon-sun.svg";
 const Header = ({ toggleTheme, click }) => {
   return (
     <div className="h-[22rem] w-full relative">
-      <div className="absolute w-full px-6 top-[5rem] flex justify-between">
+      <div className="absolute w-full px-6 lg:px-[35rem] top-[5rem] flex justify-between">
         <h1 className="tracking-[0.4em] text-white text-5xl font-bold">TODO</h1>
 
         <Image

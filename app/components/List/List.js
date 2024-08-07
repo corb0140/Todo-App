@@ -5,8 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeTodo, updateTodo } from "@/app/redux/slices/todoSlice";
 import check from "@/public/images/icon-check.svg";
 import cross from "@/public/images/icon-cross.svg";
+import ViewStateUi from "@/app/UI/ViewStateUi";
 
-export default function List({ todos, toggleTheme }) {
+export default function List({ todos, toggleTheme, handleViewState }) {
   const { todoList } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
 
@@ -98,6 +99,13 @@ export default function List({ todos, toggleTheme }) {
           >
             {todoList.length} items left
           </p>
+
+          <div className="hidden lg:block">
+            <ViewStateUi
+              handleViewState={handleViewState}
+              toggleTheme={toggleTheme}
+            />
+          </div>
 
           <p
             className={`text-lg ${
