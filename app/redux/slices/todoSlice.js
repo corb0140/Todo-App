@@ -24,6 +24,10 @@ const todoSlice = createSlice({
       }
     },
 
+    changeViewState: (state, action) => {
+      state.viewState = action.payload;
+    },
+
     removeTodo: (state, action) => {
       const id = action.payload;
 
@@ -32,6 +36,7 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, updateTodo, changeViewState } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

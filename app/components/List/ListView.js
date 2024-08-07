@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ListView({ toggleTheme }) {
+export default function ListView({ toggleTheme, handleViewState }) {
   const [activeLink, setActiveLink] = useState(0);
 
   const handleActiveLink = (index) => {
@@ -21,7 +21,10 @@ export default function ListView({ toggleTheme }) {
           <Link
             href="#"
             className={activeLink === 0 ? "" : "text-lightMode-darkGrayishBlue"}
-            onClick={() => handleActiveLink(0)}
+            onClick={() => {
+              handleActiveLink(0);
+              handleViewState("all");
+            }}
           >
             All
           </Link>
@@ -30,7 +33,10 @@ export default function ListView({ toggleTheme }) {
           <Link
             href="#"
             className={activeLink === 1 ? "" : "text-lightMode-darkGrayishBlue"}
-            onClick={() => handleActiveLink(1)}
+            onClick={() => {
+              handleActiveLink(1);
+              handleViewState("active");
+            }}
           >
             Active
           </Link>
@@ -39,7 +45,10 @@ export default function ListView({ toggleTheme }) {
           <Link
             href="#"
             className={activeLink === 2 ? "" : "text-lightMode-darkGrayishBlue"}
-            onClick={() => handleActiveLink(2)}
+            onClick={() => {
+              handleActiveLink(2);
+              handleViewState("completed");
+            }}
           >
             Completed
           </Link>
