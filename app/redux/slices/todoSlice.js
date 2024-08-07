@@ -28,6 +28,10 @@ const todoSlice = createSlice({
       state.viewState = action.payload;
     },
 
+    reorderTodos: (state, action) => {
+      state.todoList = action.payload;
+    },
+
     removeTodo: (state, action) => {
       const id = action.payload;
 
@@ -36,7 +40,12 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addTodo, removeTodo, updateTodo, changeViewState } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  removeTodo,
+  updateTodo,
+  changeViewState,
+  reorderTodos,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

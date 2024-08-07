@@ -2,13 +2,20 @@
 
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo, updateTodo } from "@/app/redux/slices/todoSlice";
+import {
+  removeTodo,
+  updateTodo,
+  reorderTodos,
+} from "@/app/redux/slices/todoSlice";
 import check from "@/public/images/icon-check.svg";
 import cross from "@/public/images/icon-cross.svg";
 import ViewStateUi from "@/app/UI/ViewStateUi";
+import { Reorder } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function List({ todos, toggleTheme, handleViewState }) {
   const { todoList } = useSelector((state) => state.todo);
+  const [items, setItems] = useState(todos);
   const dispatch = useDispatch();
 
   const toggleCompleted = (id) => {
@@ -31,58 +38,72 @@ export default function List({ todos, toggleTheme, handleViewState }) {
     });
   };
 
+  useEffect(() => {
+    console.log("Updating items state with todos prop", todos);
+    setItems(todos);
+  }, [todos]);
+
+  const handleReorder = (newOrder) => {
+    console.log("New order", newOrder);
+    setItems(newOrder);
+    dispatch(reorderTodos(newOrder));
+  };
+
   return (
     <div className="h-auto w-full rounded-lg flex flex-col shadow-lg">
-      {todos.map((todo) => (
-        <div
-          key={todo.id}
-          className={`relative h-[4.8rem] w-full flex items-center px-5 gap-x-5 ${
-            toggleTheme ? "bg-darkMode-veryDarkDesaturatedBlue" : "bg-white"
-          } border-${
-            toggleTheme ? "darkMode" : "lightMode"
-          }-darkGrayishBlue [&:not(:last-child)]:border-b first:rounded-t-lg last:rounded-b-lg`}
-        >
-          <div
-            className={`h-8 w-8 rounded-full border-${
+      <Reorder.Group axis="y" values={items} onReorder={handleReorder}>
+        {todos.map((todo) => (
+          <Reorder.Item
+            key={todo.id}
+            value={todo}
+            className={`relative h-[4.8rem] w-full flex items-center px-5 gap-x-5 ${
+              toggleTheme ? "bg-darkMode-veryDarkDesaturatedBlue" : "bg-white"
+            } border-${
               toggleTheme ? "darkMode" : "lightMode"
-            }-lightGrayishBlue ${
-              todo.completed
-                ? "bg-gradient-to-br from-lightBlue to-purple"
-                : "border"
-            } flex items-center justify-center`}
-            onClick={() => {
-              toggleCompleted(todo.id);
-            }}
+            }-darkGrayishBlue border-b first:rounded-t-lg active:cursor-grabbing`}
           >
-            {todo.completed && (
-              <Image
-                src={check}
-                alt="check mark to show task is completed"
-                className="h-2 w-2 "
-              />
-            )}
-          </div>
+            <div
+              className={`h-8 w-8 rounded-full border-${
+                toggleTheme ? "darkMode" : "lightMode"
+              }-lightGrayishBlue ${
+                todo.completed
+                  ? "bg-gradient-to-br from-lightBlue to-purple"
+                  : "border"
+              } flex items-center justify-center`}
+              onClick={() => {
+                toggleCompleted(todo.id);
+              }}
+            >
+              {todo.completed && (
+                <Image
+                  src={check}
+                  alt="check mark to show task is completed"
+                  className="h-2 w-2 "
+                />
+              )}
+            </div>
 
-          <p
-            className={`text-lg ${
-              toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
-            }
+            <p
+              className={`text-lg ${
+                toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
+              }
             ${todo.completed ? "line-through" : ""}
             `}
-          >
-            {todo.text}
-          </p>
+            >
+              {todo.text}
+            </p>
 
-          <Image
-            src={cross}
-            alt="cross"
-            className="absolute z-10 right-10 hover:cursor-pointer"
-            onClick={() => {
-              removeTodoHandler(todo.id);
-            }}
-          />
-        </div>
-      ))}
+            <Image
+              src={cross}
+              alt="cross"
+              className="absolute z-10 right-10 hover:cursor-pointer"
+              onClick={() => {
+                removeTodoHandler(todo.id);
+              }}
+            />
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
 
       {todoList.length > 0 && (
         <div
