@@ -22,6 +22,14 @@ export default function List({ todos, toggleTheme }) {
     dispatch(removeTodo(id));
   };
 
+  const clearCompleted = () => {
+    const completedTodos = todoList.filter((todo) => todo.completed);
+
+    completedTodos.forEach((todo) => {
+      dispatch(removeTodo(todo.id));
+    });
+  };
+
   return (
     <div className="h-auto w-full rounded-lg flex flex-col shadow-lg">
       {todos.map((todo) => (
@@ -57,7 +65,9 @@ export default function List({ todos, toggleTheme }) {
           <p
             className={`text-lg ${
               toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
-            }`}
+            }
+            ${todo.completed ? "line-through" : ""}
+            `}
           >
             {todo.text}
           </p>
@@ -72,6 +82,33 @@ export default function List({ todos, toggleTheme }) {
           />
         </div>
       ))}
+
+      {todoList.length > 0 && (
+        <div
+          className={`h-[4.8rem] w-full flex justify-between items-center px-5 gap-x-5 ${
+            toggleTheme ? "bg-darkMode-veryDarkDesaturatedBlue" : "bg-white"
+          } border-${
+            toggleTheme ? "darkMode" : "lightMode"
+          }-darkGrayishBlue [&:not(:last-child)]:border-b first:rounded-t-lg last:rounded-b-lg`}
+        >
+          <p
+            className={`text-lg ${
+              toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
+            }`}
+          >
+            {todoList.length} items left
+          </p>
+
+          <p
+            className={`text-lg ${
+              toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
+            } hover:cursor-pointer`}
+            onClick={clearCompleted}
+          >
+            Clear Completed
+          </p>
+        </div>
+      )}
     </div>
   );
 }
