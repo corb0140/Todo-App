@@ -88,7 +88,7 @@ export default function List({ todos, toggleTheme, handleViewState }) {
                 toggleTheme ? "text-white" : "text-lightMode-darkGrayishBlue"
               }
             ${todo.completed ? "line-through" : ""}
-            `}
+            lg:text-[16px]`}
             >
               {todo.text}
             </p>

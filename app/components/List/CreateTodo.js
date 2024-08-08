@@ -33,7 +33,7 @@ const CreateTodo = ({ toggleTheme }) => {
           ref={inputRef}
           type="text"
           placeholder="Create a new todo..."
-          className="text-lg outline-none w-full text-lightMode-darkGrayishBlue bg-transparent"
+          className="text-lg lg:text-[16px] outline-none w-full text-lightMode-darkGrayishBlue bg-transparent"
         />
       </form>
     </div>
